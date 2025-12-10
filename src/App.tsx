@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import Navbar from './components/Navbar';
 import MobileNavbar from './components/MobileNavbar';
@@ -177,13 +178,13 @@ const router = createBrowserRouter([
 
     ]
   }
-], {
-  basename: "/SamanKhojo"
-});
+]);
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
   );
 }
 

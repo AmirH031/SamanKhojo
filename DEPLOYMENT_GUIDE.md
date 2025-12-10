@@ -3,7 +3,7 @@
 ## Frontend Deployment (Firebase) ✅ COMPLETED
 
 Your frontend is successfully deployed to Firebase Hosting:
-- **URL**: https://khojo-9ae5c.web.app
+- **URL**: https://khojo-9ae5c.web.app/
 - **Status**: Live and accessible
 
 ## Backend Deployment (Render)
@@ -46,7 +46,7 @@ Your frontend is successfully deployed to Firebase Hosting:
    FIREBASE_STORAGE_BUCKET=khojo-9ae5c.firebasestorage.app
    JWT_SECRET=SamanKhojo_Prod_JWT_Secret_2024_Secure_Key_Change_This_In_Production
    FREE_DAILY_LIMIT=1000
-   BASE_WEB_URL=https://khojo-9ae5c.web.app
+   BASE_WEB_URL=https://khojo-9ae5c.web.app/
    ADMIN_EMAIL=amirhussain@gmail.com
    PRODUCT_ALERTS_ENABLED=true
    SEARCH_TRACKING_ENABLED=true
@@ -74,7 +74,7 @@ Once your backend is deployed on Render (you'll get a URL like `https://samankho
 ### Step 4: Test the Deployment
 
 1. **Backend Health Check**: Visit `https://your-render-app-name.onrender.com/health`
-2. **Frontend**: Visit `https://khojo-9ae5c.web.app`
+2. **Frontend**: Visit `https://khojo-9ae5c.web.app/`
 3. **Test API Connection**: Try searching or browsing shops
 
 ## Important Notes

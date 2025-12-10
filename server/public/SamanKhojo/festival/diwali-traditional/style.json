@@ -1,0 +1,44 @@
+{
+  "name": "diwali-traditional",
+  "displayName": "Traditional Diwali",
+  "banner": "banner.png",
+  "overlay": null,
+  "decorations": [],
+  "videos": [],
+  "effects": {
+    "confetti": true,
+    "sparkles": true,
+    "glow": true,
+    "snow": false,
+    "colorSplash": false,
+    "particles": true
+  },
+  "colors": {
+    "primary": "#FF9933",
+    "secondary": "#FFCC00",
+    "accent": "#FF6B35",
+    "background": "linear-gradient(135deg, #FF9933 0%, #FFCC00 50%, #FF6B35 100%)",
+    "text": "#8B4513"
+  },
+  "animations": {
+    "float": true,
+    "pulse": true,
+    "rotate": false,
+    "bounce": false,
+    "fade": true
+  },
+  "layout": {
+    "bannerPosition": "hero",
+    "overlayPosition": "fullscreen",
+    "showDecorations": true,
+    "decorationDensity": "high"
+  },
+  "sounds": {
+    "enabled": true,
+    "volume": 0.3
+  },
+  "assets": {
+    "decorations": [],
+    "videos": []
+  }
+}

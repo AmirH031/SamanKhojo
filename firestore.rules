@@ -1,0 +1,134 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Since role checking is done via backend API, we'll allow authenticated users
+    // and rely on backend validation for admin operations
+    function isAuthenticatedUser() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Users collection - for role management
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+      allow create: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // Asset metadata collection - allow authenticated users since backend handles admin checks
+    match /assetMetadata/{assetId} {
+      allow read: if isAuthenticated();
+      allow write, create, delete: if isAuthenticated(); // Backend will validate admin permissions
+    }
+    
+    // Festival collections
+    match /festivals/{festivalId} {
+      allow read: if true; // Public read access for festivals
+      allow write, create, delete: if isAuthenticated(); // Backend validates admin permissions
+      
+      // Festival assets subcollection
+      match /assets/{assetId} {
+        allow read: if true;
+        allow write, create, delete: if isAuthenticated();
+      }
+      
+      // Festival layouts subcollection
+      match /layouts/{layoutId} {
+        allow read: if true;
+        allow write, create, delete: if isAuthenticated();
+      }
+      
+      // Festival templates subcollection
+      match /templates/{templateId} {
+        allow read: if true;
+        allow write, create, delete: if isAuthenticated();
+      }
+    }
+    
+    // Categories collection
+    match /categories/{categoryId} {
+      allow read: if true; // Public read access
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // Items collection (for shops/products)
+    match /items/{itemId} {
+      allow read: if true; // Public read access
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // Shops collection
+    match /shops/{shopId} {
+      allow read: if true; // Public read access
+      allow write, create, delete: if isAuthenticated();
+      
+      // Shop items subcollection
+      match /items/{itemId} {
+        allow read: if true;
+        allow write, create, delete: if isAuthenticated();
+      }
+    }
+    
+    // Trending items collection
+    match /trending/{trendingId} {
+      allow read: if true; // Public read access
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // Banner templates collection
+    match /bannerTemplates/{templateId} {
+      allow read: if true; // Public read access
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // Festival templates collection
+    match /festivalTemplates/{templateId} {
+      allow read: if true; // Public read access
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // Homepage layouts collection
+    match /homepageLayouts/{layoutId} {
+      allow read: if true; // Public read access
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // Analytics and stats collections
+    match /analytics/{docId} {
+      allow read: if isAuthenticated();
+      allow write, create: if isAuthenticated();
+      allow delete: if isAuthenticated();
+    }
+    
+    // Asset stats collection
+    match /assetStats/{statId} {
+      allow read: if isAuthenticated();
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // User preferences and settings
+    match /userPreferences/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // System configuration
+    match /config/{configId} {
+      allow read: if isAuthenticated();
+      allow write, create, delete: if isAuthenticated();
+    }
+    
+    // Catch-all rule for any other collections
+    match /{document=**} {
+      allow read: if true; // Allow public read by default
+      allow write, create, delete: if isAuthenticated(); // Allow authenticated users, backend validates admin
+    }
+  }
+}

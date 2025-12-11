@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { apiConfig } from '../config/app';
 
 interface BagIconProps {
   className?: string;
@@ -32,7 +33,7 @@ const BagIcon: React.FC<BagIconProps> = ({ className = "", showLabel = false }) 
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/bag/${user.uid}`, {
+      const response = await fetch(`${apiConfig.baseUrl}/bag/${user.uid}`, {
         headers: {
           'Authorization': `Bearer ${await user.getIdToken()}`
         }

@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+import { apiConfig } from '../config/app';
 
 export interface BagItem {
   itemId: string;
@@ -59,7 +60,7 @@ export const addToBag = async (item: {
     throw new Error('User must be authenticated to add items to bag');
   }
 
-  const response = await fetch('/api/bag/add', {
+  const response = await fetch(`${apiConfig.baseUrl}/bag/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -98,7 +99,7 @@ export const getBagItems = async (): Promise<BagData> => {
     };
   }
 
-  const response = await fetch(`/api/bag/${user.uid}`, {
+  const response = await fetch(`${apiConfig.baseUrl}/bag/${user.uid}`, {
     headers: {
       'Authorization': `Bearer ${await user.getIdToken()}`
     }
@@ -121,7 +122,7 @@ export const updateBagItemQuantity = async (itemId: string, quantity: number): P
     throw new Error('User must be authenticated');
   }
 
-  const response = await fetch(`/api/bag/item/${itemId}`, {
+  const response = await fetch(`${apiConfig.baseUrl}/bag/item/${itemId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -145,7 +146,7 @@ export const removeFromBag = async (itemId: string): Promise<void> => {
     throw new Error('User must be authenticated');
   }
 
-  const response = await fetch(`/api/bag/item/${itemId}`, {
+  const response = await fetch(`${apiConfig.baseUrl}/bag/item/${itemId}`, {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${await user.getIdToken()}`
@@ -167,7 +168,7 @@ export const clearBag = async (): Promise<void> => {
     throw new Error('User must be authenticated');
   }
 
-  const response = await fetch(`/api/bag/${user.uid}`, {
+  const response = await fetch(`${apiConfig.baseUrl}/bag/${user.uid}`, {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${await user.getIdToken()}`
@@ -190,7 +191,7 @@ export const confirmBooking = async (): Promise<BookingConfirmation> => {
   }
 
   // Get user profile for phone and name
-  const profileResponse = await fetch('/api/auth/user/profile', {
+  const profileResponse = await fetch(`${apiConfig.baseUrl}/auth/user/profile`, {
     headers: {
       'Authorization': `Bearer ${await user.getIdToken()}`
     }
@@ -205,7 +206,7 @@ export const confirmBooking = async (): Promise<BookingConfirmation> => {
     userName = profileData.profile?.name || '';
   }
 
-  const response = await fetch('/api/bag/confirm', {
+  const response = await fetch(`${apiConfig.baseUrl}/bag/confirm`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

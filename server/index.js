@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3000;
 // ✅ CORS setup
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://khojo-9ae5c.web.app', 'https://khojo-9ae5c.firebaseapp.com'] 
+    ? ['https://khojo-9ae5c.web.app', 'https://khojo-9ae5c.firebaseapp.com', 'https://samankhojo.in'] 
     : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3002', 'https://khojo-9ae5c.web.app'],
   credentials: true
 }));
@@ -142,6 +142,28 @@ app.use('/api/inventory', inventoryRouter);
 
 // Chatbot interface removed - integrated into main application
 
+
+// Root route for API information
+app.get('/', (req, res) => {
+  res.json({
+    name: 'SamanKhojo API',
+    version: '1.0.0',
+    status: 'running',
+    message: 'Welcome to SamanKhojo Backend API',
+    frontend: process.env.BASE_WEB_URL,
+    documentation: {
+      health: '/health',
+      api: {
+        search: 'POST /api/search',
+        shops: 'GET /api/shops',
+        items: 'GET /api/items',
+        festival: 'GET /api/festival/active',
+        ratings: 'GET /api/ratings'
+      }
+    },
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Enhanced health check with performance metrics and background job status
 app.get('/health', async (req, res) => {

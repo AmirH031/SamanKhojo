@@ -19,6 +19,7 @@ import {
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { apiConfig } from '../config/app';
 import AuthModal from '../components/AuthModal';
 import ProfileSetupModal from '../components/ProfileSetupModal';
 import ComingSoonModal from '../components/ComingSoonModal';
@@ -85,7 +86,7 @@ const BagPage: React.FC = () => {
     if (!user) return;
     
     try {
-      const response = await fetch(`/api/bag/${user.uid}`, {
+      const response = await fetch(`${apiConfig.baseUrl}/bag/${user.uid}`, {
         headers: {
           'Authorization': `Bearer ${await user.getIdToken()}`
         }
@@ -113,7 +114,7 @@ const BagPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`/api/bag/item/${itemId}`, {
+      const response = await fetch(`${apiConfig.baseUrl}/bag/item/${itemId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +152,7 @@ const BagPage: React.FC = () => {
 
   const handleRemoveItem = async (itemId: string) => {
     try {
-      const response = await fetch(`/api/bag/item/${itemId}`, {
+      const response = await fetch(`${apiConfig.baseUrl}/bag/item/${itemId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${await user!.getIdToken()}`

@@ -18,7 +18,7 @@ export const firebaseConfig = {
 export const apiConfig = {
   baseUrl: import.meta.env.DEV 
     ? '/api' // Relative path - will be proxied by Vite in development
-    : 'https://samankhojo-7qua.onrender.com/api', // Full URL for production
+    : `${import.meta.env.VITE_API_BASE_URL}/api`, // Use environment variable for production
   timeout: 30000,
   retryAttempts: 5
 };

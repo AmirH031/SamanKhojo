@@ -5,6 +5,7 @@ import {
   User,
   updateProfile
 } from 'firebase/auth';
+import { apiConfig } from '../config/app';
 import {
   doc,
   setDoc,
@@ -97,7 +98,7 @@ export const findExistingUser = async (
       throw new Error('No authentication token available');
     }
 
-    const response = await fetch('/api/auth/find-user', {
+    const response = await fetch(`${apiConfig.baseUrl}/auth/find-user`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -133,7 +134,7 @@ export const mergeWithExistingProfile = async (
       throw new Error('No authentication token available');
     }
 
-    const response = await fetch('/api/auth/merge-profile', {
+    const response = await fetch(`${apiConfig.baseUrl}/auth/merge-profile`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
